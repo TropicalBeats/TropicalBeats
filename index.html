@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<meta
+  name="theme-color"
+  content="#070308">
+
+<meta
+  name="description"
+  content="Tropical Beat Açaí — o melhor açaí da região. Faça seu pedido e acompanhe nossas novidades.">
+
+<title>Tropical Beat • Açaíteria</title>
+
+
+<!-- Font Awesome -->
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+<style>
+
+/* =========================================
+   VARIÁVEIS
+========================================= */
+
+:root{
+
+  --pink:#ff00a8;
+  --pink2:#ff2bd6;
+
+  --green:#36ff00;
+  --green2:#8cff00;
+
+  --yellow:#fff000;
+
+  --blue:#008cff;
+
+  --bg:#050307;
+
+}
+
+
+/* =========================================
+   RESET
+========================================= */
+
+*{
+
+  box-sizing:border-box;
+
+  margin:0;
+
+  padding:0;
+
+}
+
+
+html{
+
+  scroll-behavior:smooth;
+
+}
+
+
+body{
+
+  min-height:100vh;
+
+  color:#fff;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background:#050307;
+
+  overflow-x:hidden;
+
+}
+
+
+/* =========================================
+   BACKGROUND DINÂMICO
+========================================= */
+
+#background{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:-3;
+
+  background:
+
+    linear-gradient(
+      180deg,
+      rgba(3,0,7,.35),
+      rgba(3,0,7,.72)
+    ),
+
+    url("assets/poster-dia.jpeg")
+    center top / cover
+    no-repeat;
+
+  filter:saturate(1.15);
+
+  opacity:1;
+
+  transition:
+
+    opacity 1.2s ease;
+
+}
+
+
+/* =========================================
+   ILUMINAÇÃO SOBRE O BACKGROUND
+========================================= */
+
+body::after{
+
+  content:"";
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:-2;
+
+  pointer-events:none;
+
+  background:
+
+    radial-gradient(
+      circle at 15% 15%,
+      rgba(130,255,0,.14),
+      transparent 25%
+    ),
+
+    radial-gradient(
+      circle at 88% 22%,
+      rgba(255,0,180,.17),
+      transparent 27%
+    ),
+
+    radial-gradient(
+      circle at 50% 90%,
+      rgba(0,150,255,.10),
+      transparent 30%
+    );
+
+}
+
+
+a{
+
+  color:inherit;
+
+  text-decoration:none;
+
+}
+
+
+/* =========================================
+   PÁGINA
+========================================= */
+
+.page{
+
+  width:min(100%,520px);
+
+  margin:auto;
+
+  padding:
+    24px
+    18px
+    42px;
+
+}
+
+
+/* =========================================
+   TOPO
+========================================= */
+
+.topbar{
+
+  display:flex;
+
+  justify-content:flex-end;
+
+  margin-bottom:10px;
+
+}
+
+
+.sound-btn{
+
+  width:42px;
+
+  height:42px;
+
+  border-radius:50%;
+
+  border:
+    1px solid
+    rgba(255,255,255,.13);
+
+  background:
+    rgba(0,0,0,.42);
+
+  backdrop-filter:blur(12px);
+
+  color:#fff;
+
+  font-size:18px;
+
+  cursor:pointer;
+
+  transition:.25s;
+
+}
+
+
+.sound-btn:hover{
+
+  transform:scale(1.08);
+
+  box-shadow:
+    0 0 22px
+    rgba(255,0,190,.35);
+
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.hero{
+
+  text-align:center;
+
+  padding:
+    4px
+    0
+    18px;
+
+}
+
+
+.logo{
+
+  width:178px;
+
+  height:178px;
+
+  margin:
+    0
+    auto
+    12px;
+
+  border-radius:50%;
+
+
+  background-image:
+    url("assets/logo.png");
+
+  background-size:cover;
+
+  background-position:center;
+
+  background-repeat:no-repeat;
+
+
+  border:
+    4px solid
+    #ff00c8;
+
+
+  box-shadow:
+
+    0 0 0 5px
+    rgba(255,0,200,.12),
+
+    0 0 35px
+    rgba(255,0,200,.48),
+
+    0 0 60px
+    rgba(113,255,0,.12);
+
+
+  animation:
+    float 4s
+    ease-in-out
+    infinite;
+
+}
+
+
+@keyframes float{
+
+  0%,100%{
+
+    transform:
+      translateY(0);
+
+  }
+
+  50%{
+
+    transform:
+      translateY(-7px);
+
+  }
+
+}
+
+
+.hero h1{
+
+  font-size:
+    clamp(
+      30px,
+      8vw,
+      43px
+    );
+
+  font-weight:900;
+
+  font-style:italic;
+
+  letter-spacing:-1.5px;
+
+  text-shadow:
+
+    0 3px 0
+    #151015,
+
+    0 0 22px
+    rgba(255,0,200,.5);
+
+}
+
+
+.hero h1 span{
+
+  color:var(--green);
+
+  text-shadow:
+    0 0 18px
+    rgba(100,255,0,.55);
+
+}
+
+
+.subtitle{
+
+  margin-top:7px;
+
+  font-size:13px;
+
+  letter-spacing:2px;
+
+  font-weight:800;
+
+  color:#ffd400;
+
+}
+
+
+.tagline{
+
+  margin:
+    14px
+    auto
+    0;
+
+  width:max-content;
+
+  max-width:100%;
+
+  padding:
+    9px
+    17px;
+
+  border-radius:999px;
+
+  background:
+    rgba(255,0,168,.12);
+
+  border:
+    1px solid
+    rgba(255,0,168,.38);
+
+  font-weight:800;
+
+  font-size:14px;
+
+}
+
+
+/* =========================================
+   LINKS
+========================================= */
+
+.links{
+
+  display:grid;
+
+  gap:14px;
+
+  margin-top:8px;
+
+}
+
+
+.link-card{
+
+  --accent:#fff;
+
+  position:relative;
+
+  display:flex;
+
+  align-items:center;
+
+  min-height:78px;
+
+  padding:
+    10px
+    17px
+    10px
+    12px;
+
+  border-radius:24px;
+
+  overflow:hidden;
+
+  border:
+    1px solid
+    rgba(255,255,255,.20);
+
+
+  background:
+
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.13),
+      rgba(255,255,255,.045)
+    );
+
+
+  backdrop-filter:blur(14px);
+
+
+  box-shadow:
+    0 12px 28px
+    rgba(0,0,0,.34);
+
+
+  transform:
+    translateY(18px);
+
+  opacity:0;
+
+  animation:
+    rise .65s
+    forwards;
+
+
+  transition:
+
+    transform .25s,
+    box-shadow .25s,
+    border-color .25s;
+
+}
+
+
+.link-card:nth-child(2){
+
+  animation-delay:.08s;
+
+}
+
+
+.link-card:nth-child(3){
+
+  animation-delay:.16s;
+
+}
+
+
+.link-card:nth-child(4){
+
+  animation-delay:.24s;
+
+}
+
+
+@keyframes rise{
+
+  to{
+
+    transform:
+      translateY(0);
+
+    opacity:1;
+
+  }
+
+}
+
+
+.link-card::before{
+
+  content:"";
+
+  position:absolute;
+
+  width:120px;
+
+  height:120px;
+
+  left:-50px;
+
+  top:-55px;
+
+  border-radius:50%;
+
+  background:var(--accent);
+
+  opacity:.18;
+
+  filter:blur(12px);
+
+}
+
+
+.link-card::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+
+    linear-gradient(
+      105deg,
+      transparent 35%,
+      rgba(255,255,255,.13) 50%,
+      transparent 65%
+    );
+
+  transform:
+    translateX(-120%);
+
+  transition:.65s;
+
+}
+
+
+.link-card:hover::after{
+
+  transform:
+    translateX(120%);
+
+}
+
+
+.link-card:hover{
+
+  transform:
+    translateY(-4px)
+    scale(1.015);
+
+  border-color:
+    rgba(255,255,255,.35);
+
+  box-shadow:
+
+    0 16px 34px
+    rgba(0,0,0,.45),
+
+    0 0 25px
+    var(--accent);
+
+}
+
+
+/* =========================================
+   ÍCONES
+========================================= */
+
+.icon{
+
+  flex:
+    0 0 56px;
+
+  width:56px;
+
+  height:56px;
+
+  display:grid;
+
+  place-items:center;
+
+  border-radius:18px;
+
+  background:
+    var(--accent);
+
+  box-shadow:
+
+    inset 0 0 0 1px
+    rgba(255,255,255,.25),
+
+    0 0 18px
+    var(--accent);
+
+  color:#fff;
+
+  font-size:26px;
+
+  z-index:1;
+
+}
+
+
+.icon i{
+
+  font-size:26px;
+
+}
+
+
+/* =========================================
+   IFOOD
+========================================= */
+
+.ifood-logo{
+
+  width:36px;
+
+  height:36px;
+
+  object-fit:contain;
+
+  filter:
+    brightness(0)
+    invert(1);
+
+}
+
+
+/* =========================================
+   CORES DOS BOTÕES
+========================================= */
+
+.whatsapp{
+
+  --accent:#19e34a;
+
+}
+
+
+.instagram{
+
+  --accent:#ff009d;
+
+}
+
+
+.facebook{
+
+  --accent:#168cff;
+
+}
+
+
+.order{
+
+  --accent:#ff1c1c;
+
+}
+
+
+/* =========================================
+   TEXTO
+========================================= */
+
+.content{
+
+  flex:1;
+
+  text-align:left;
+
+  padding-left:13px;
+
+  z-index:1;
+
+}
+
+
+.content strong{
+
+  display:block;
+
+  font-size:18px;
+
+  letter-spacing:.3px;
+
+}
+
+
+.content small{
+
+  display:block;
+
+  margin-top:4px;
+
+  color:
+    rgba(255,255,255,.76);
+
+  font-size:11px;
+
+  font-weight:700;
+
+  letter-spacing:.8px;
+
+}
+
+
+.arrow{
+
+  z-index:1;
+
+  font-size:30px;
+
+  line-height:1;
+
+  opacity:.95;
+
+  transition:.25s;
+
+}
+
+
+.link-card:hover .arrow{
+
+  transform:
+    translateX(5px);
+
+}
+
+
+/* =========================================
+   TEXTO RÁPIDO
+========================================= */
+
+.quick{
+
+  margin-top:21px;
+
+  text-align:center;
+
+  font-size:12px;
+
+  color:
+    rgba(255,255,255,.65);
+
+}
+
+
+.quick b{
+
+  color:#fff;
+
+}
+
+
+/* =========================================
+   FEATURES
+========================================= */
+
+.features{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap:7px;
+
+  margin:
+    27px
+    0
+    20px;
+
+  padding:
+    17px
+    8px;
+
+  border-top:
+    1px solid
+    rgba(255,255,255,.12);
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.12);
+
+}
+
+
+.feature{
+
+  text-align:center;
+
+}
+
+
+.feature .ficon{
+
+  font-size:22px;
+
+  color:
+    var(--green2);
+
+  margin-bottom:6px;
+
+}
+
+
+.feature span{
+
+  display:block;
+
+  font-size:9px;
+
+  line-height:1.25;
+
+  font-weight:900;
+
+  color:#fff;
+
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.footer{
+
+  text-align:center;
+
+  padding-top:3px;
+
+}
+
+
+.footer .brand{
+
+  font-size:27px;
+
+  font-weight:1000;
+
+  font-style:italic;
+
+  color:#ff12c3;
+
+  text-shadow:
+    0 0 15px
+    rgba(255,0,190,.38);
+
+}
+
+
+.footer p{
+
+  font-size:14px;
+
+  font-style:italic;
+
+  font-weight:700;
+
+  color:#eee;
+
+  margin-top:2px;
+
+}
+
+
+.footer .copy{
+
+  font-size:10px;
+
+  color:
+    rgba(255,255,255,.42);
+
+  margin-top:15px;
+
+}
+
+
+/* =========================================
+   BOLHAS
+========================================= */
+
+.bubble{
+
+  position:fixed;
+
+  bottom:-30px;
+
+  border-radius:50%;
+
+  background:
+    rgba(255,0,190,.25);
+
+  box-shadow:
+
+    0 0 12px
+    rgba(255,0,190,.25);
+
+  pointer-events:none;
+
+  z-index:-1;
+
+  animation:
+    bubble 7s
+    linear
+    infinite;
+
+}
+
+
+@keyframes bubble{
+
+  0%{
+
+    transform:
+      translateY(0)
+      scale(.6);
+
+    opacity:0;
+
+  }
+
+
+  15%{
+
+    opacity:.8;
+
+  }
+
+
+  100%{
+
+    transform:
+      translateY(-110vh)
+      translateX(35px)
+      scale(1.2);
+
+    opacity:0;
+
+  }
+
+}
+
+
+/* =========================================
+   RIPPLE
+========================================= */
+
+.ripple{
+
+  position:absolute;
+
+  border-radius:50%;
+
+  transform:scale(0);
+
+  animation:
+    ripple .55s
+    linear;
+
+  background:
+    rgba(255,255,255,.35);
+
+  pointer-events:none;
+
+}
+
+
+@keyframes ripple{
+
+  to{
+
+    transform:
+      scale(5);
+
+    opacity:0;
+
+  }
+
+}
+
+
+/* =========================================
+   CELULARES PEQUENOS
+========================================= */
+
+@media (max-width:380px){
+
+  .page{
+
+    padding-left:13px;
+
+    padding-right:13px;
+
+  }
+
+
+  .logo{
+
+    width:155px;
+
+    height:155px;
+
+  }
+
+
+  .link-card{
+
+    min-height:72px;
+
+  }
+
+
+  .icon{
+
+    width:51px;
+
+    height:51px;
+
+    flex-basis:51px;
+
+  }
+
+
+  .icon i{
+
+    font-size:24px;
+
+  }
+
+
+  .ifood-logo{
+
+    width:32px;
+
+    height:32px;
+
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     BACKGROUND
+========================================= -->
+
+<div id="background"></div>
+
+
+<!-- BOLHAS -->
+
+<div id="bubbles"></div>
+
+
+<main class="page">
+
+
+  <!-- =====================================
+       TOPO
+  ====================================== -->
+
+  <div class="topbar">
+
+    <button
+      class="sound-btn"
+      id="soundBtn"
+      aria-label="Ativar ou desativar efeitos">
+
+      🔇
+
+    </button>
+
+  </div>
+
+
+  <!-- =====================================
+       HERO
+  ====================================== -->
+
+  <header class="hero">
+
+
+    <div
+      class="logo"
+      aria-label="Tropical Beat Açaíteria">
+    </div>
+
+
+    <h1>
+
+      Tropical <span>Beat</span>
+
+    </h1>
+
+
+    <div class="subtitle">
+
+      AÇAÍTERIA • AÇAÍ • ENERGIA • SABOR
+
+    </div>
+
+
+    <div class="tagline">
+
+      💜 O melhor açaí da região!
+
+    </div>
+
+
+  </header>
+
+
+  <!-- =====================================
+       LINKS
+  ====================================== -->
+
+  <section
+    class="links"
+    aria-label="Links da Tropical Beat">
+
+
+    <!-- ===================================
+         IFOOD
+    ==================================== -->
+
+    <a
+      class="link-card order"
+
+      href="https://www.ifood.com.br/delivery/cuiaba-mt/tropical-beat-acaiteria-altos-da-serra-2/4ff38d59-c908-4d7d-b737-24981e196da0?UTM_Medium=share"
+
+      target="_blank"
+
+      rel="noopener">
+
+
+      <div class="icon">
+
+        <img
+          class="ifood-logo"
+
+          src="https://cdn.simpleicons.org/ifood/ffffff"
+
+          alt="iFood">
+
+      </div>
+
+
+      <div class="content">
+
+        <strong>
+
+          Quero meu açaí!
+
+        </strong>
+
+
+        <small>
+
+          PEÇA PELO IFOOD • DELIVERY RÁPIDO
+
+        </small>
+
+      </div>
+
+
+      <div class="arrow">
+
+        ›
+
+      </div>
+
+
+    </a>
+
+
+    <!-- ===================================
+         WHATSAPP
+    ==================================== -->
+
+    <a
+      class="link-card whatsapp"
+
+      href="https://wa.me/5565999816519?text=Ol%C3%A1%20Tropical%20Beat!%20Quero%20fazer%20um%20pedido."
+
+      target="_blank"
+
+      rel="noopener">
+
+
+      <div class="icon">
+
+        <i class="fa-brands fa-whatsapp"></i>
+
+      </div>
+
+
+      <div class="content">
+
+        <strong>
+
+          Chama no WhatsApp
+
+        </strong>
+
+
+        <small>
+
+          FAÇA SEU PEDIDO • (65) 99981-6519
+
+        </small>
+
+      </div>
+
+
+      <div class="arrow">
+
+        ›
+
+      </div>
+
+
+    </a>
+
+
+    <!-- ===================================
+         INSTAGRAM
+    ==================================== -->
+
+    <a
+      class="link-card instagram"
+
+      href="https://www.instagram.com/tropicalbeatacai?stkn=ZHBtbWtyMjVidnp2"
+
+      target="_blank"
+
+      rel="noopener">
+
+
+      <div class="icon">
+
+        <i class="fa-brands fa-instagram"></i>
+
+      </div>
+
+
+      <div class="content">
+
+        <strong>
+
+          Nos siga no Instagram
+
+        </strong>
+
+
+        <small>
+
+          NOVIDADES • PROMOÇÕES • SABORES
+
+        </small>
+
+      </div>
+
+
+      <div class="arrow">
+
+        ›
+
+      </div>
+
+
+    </a>
+
+
+    <!-- ===================================
+         FACEBOOK
+    ==================================== -->
+
+    <a
+      class="link-card facebook"
+
+      href="https://www.facebook.com/share/19GgyrQBqA/"
+
+      target="_blank"
+
+      rel="noopener">
+
+
+      <div class="icon">
+
+        <i class="fa-brands fa-facebook-f"></i>
+
+      </div>
+
+
+      <div class="content">
+
+        <strong>
+
+          Curta nossa página
+
+        </strong>
+
+
+        <small>
+
+          FIQUE POR DENTRO DAS NOVIDADES
+
+        </small>
+
+      </div>
+
+
+      <div class="arrow">
+
+        ›
+
+      </div>
+
+
+    </a>
+
+
+  </section>
+
+
+  <!-- =====================================
+       TEXTO RÁPIDO
+  ====================================== -->
+
+  <div class="quick">
+
+    📲 <b>Toque em qualquer botão</b>
+    para acessar
+
+  </div>
+
+
+  <!-- =====================================
+       FEATURES
+  ====================================== -->
+
+  <section
+    class="features"
+    aria-label="Destaques">
+
+
+    <div class="feature">
+
+      <div class="ficon">
+
+        ◒
+
+      </div>
+
+      <span>
+
+        AÇAÍ<br>
+        DE VERDADE
+
+      </span>
+
+    </div>
+
+
+    <div class="feature">
+
+      <div class="ficon">
+
+        ϟ
+
+      </div>
+
+      <span>
+
+        ENERGIA<br>
+        NATURAL
+
+      </span>
+
+    </div>
+
+
+    <div class="feature">
+
+      <div class="ficon">
+
+        ♡
+
+      </div>
+
+      <span>
+
+        SABOR<br>
+        INCRÍVEL
+
+      </span>
+
+    </div>
+
+
+    <div class="feature">
+
+      <div class="ficon">
+
+        ♨
+
+      </div>
+
+      <span>
+
+        DELIVERY<br>
+        RÁPIDO
+
+      </span>
+
+    </div>
+
+
+  </section>
+
+
+  <!-- =====================================
+       FOOTER
+  ====================================== -->
+
+  <footer class="footer">
+
+
+    <div class="brand">
+
+      Tropical Beat
+
+    </div>
+
+
+    <p>
+
+      é tudo de bom! 💜
+
+    </p>
+
+
+    <div class="copy">
+
+      © 2026 Tropical Beat Açaíteria
+
+    </div>
+
+
+  </footer>
+
+
+</main>
+
+
+<script>
+
+
+/* =========================================
+   SOM
+========================================= */
+
+const soundBtn =
+  document.getElementById('soundBtn');
+
+
+let soundOn = false;
+
+
+soundBtn.addEventListener(
+  'click',
+  () => {
+
+    soundOn = !soundOn;
+
+    soundBtn.textContent =
+      soundOn
+        ? '🔊'
+        : '🔇';
+
+  }
+);
+
+
+/* =========================================
+   BACKGROUND AUTOMÁTICO
+========================================= */
+
+const background =
+  document.getElementById('background');
+
+
+/*
+   IMAGENS
+
+   DIA:
+   assets/poster-dia.jpeg
+
+   NOITE:
+   assets/poster.jpeg
+*/
+
+const backgroundDia =
+  'assets/poster-dia.jpeg';
+
+
+const backgroundNoite =
+  'assets/poster.jpeg';
+
+
+/*
+   FUNÇÃO PARA ALTERAR O BACKGROUND
+*/
+
+function atualizarBackground(){
+
+
+  const agora =
+    new Date();
+
+
+  const hora =
+    agora.getHours();
+
+
+  /*
+    06:00 → 17:59
+    = DIA
+
+    18:00 → 05:59
+    = NOITE
+  */
+
+  const ehDia =
+    hora >= 6 &&
+    hora < 18;
+
+
+  const novoBackground =
+    ehDia
+      ? backgroundDia
+      : backgroundNoite;
+
+
+  /*
+    Não faz nada se
+    já estiver usando
+    a imagem correta.
+  */
+
+  if(
+    background.dataset.current
+    === novoBackground
+  ){
+
+    return;
+
+  }
+
+
+  /*
+    Começa a desaparecer
+  */
+
+  background.style.opacity =
+    '0';
+
+
+  /*
+    Espera a transição
+    antes de trocar a imagem
+  */
+
+  setTimeout(() => {
+
+
+    background.style.backgroundImage = `
+
+      linear-gradient(
+        180deg,
+        rgba(3,0,7,.35),
+        rgba(3,0,7,.72)
+      ),
+
+      url("${novoBackground}")
+
+    `;
+
+
+    background.dataset.current =
+      novoBackground;
+
+
+    /*
+      Volta a aparecer
+    */
+
+    background.style.opacity =
+      '1';
+
+
+  },600);
+
+}
+
+
+/*
+   Executa imediatamente
+   ao abrir o site.
+*/
+
+atualizarBackground();
+
+
+/*
+   Verifica a cada 1 minuto.
+
+   Isso permite que o fundo
+   mude automaticamente mesmo
+   se a pessoa permanecer na página.
+*/
+
+setInterval(
+  atualizarBackground,
+  60000
+);
+
+
+/* =========================================
+   RIPPLE NOS BOTÕES
+========================================= */
+
+document
+  .querySelectorAll('.link-card')
+  .forEach(card => {
+
+
+    card.addEventListener(
+      'click',
+      function(e){
+
+
+        const r =
+          document.createElement('span');
+
+
+        r.className =
+          'ripple';
+
+
+        const rect =
+          this.getBoundingClientRect();
+
+
+        const size =
+          Math.max(
+            rect.width,
+            rect.height
+          );
+
+
+        r.style.width =
+          size + 'px';
+
+
+        r.style.height =
+          size + 'px';
+
+
+        r.style.left =
+          (
+            e.clientX -
+            rect.left -
+            size / 2
+          ) + 'px';
+
+
+        r.style.top =
+          (
+            e.clientY -
+            rect.top -
+            size / 2
+          ) + 'px';
+
+
+        this.appendChild(r);
+
+
+        setTimeout(
+          () => r.remove(),
+          600
+        );
+
+
+      }
+    );
+
+  });
+
+
+/* =========================================
+   BOLHAS
+========================================= */
+
+const bubbles =
+  document.getElementById('bubbles');
+
+
+function createBubble(){
+
+
+  const b =
+    document.createElement('span');
+
+
+  b.className =
+    'bubble';
+
+
+  const size =
+    Math.random() * 12 + 4;
+
+
+  b.style.width =
+    size + 'px';
+
+
+  b.style.height =
+    size + 'px';
+
+
+  b.style.left =
+    Math.random() * 100 + 'vw';
+
+
+  b.style.animationDuration =
+    (
+      Math.random() * 5 + 6
+    ) + 's';
+
+
+  b.style.animationDelay =
+    (
+      Math.random() * 2
+    ) + 's';
+
+
+  bubbles.appendChild(b);
+
+
+  setTimeout(
+    () => b.remove(),
+    13000
+  );
+
+}
+
+
+setInterval(
+  createBubble,
+  700
+);
+
+
+for(
+  let i = 0;
+  i < 10;
+  i++
+){
+
+  createBubble();
+
+}
+
+
+/* =========================================
+   ANIMAÇÃO DO TÍTULO
+========================================= */
+
+document
+  .querySelector('.hero h1')
+  .addEventListener(
+    'click',
+    function(){
+
+
+      this.animate(
+
+        [
+
+          {
+            transform:'scale(1)'
+          },
+
+          {
+            transform:'scale(1.08)'
+          },
+
+          {
+            transform:'scale(1)'
+          }
+
+        ],
+
+        {
+
+          duration:400,
+
+          easing:'ease-out'
+
+        }
+
+      );
+
+    }
+  );
+
+
+</script>
+
+</body>
+
+</html>
