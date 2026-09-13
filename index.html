@@ -1,1181 +1,681 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-  >
-
-  <meta name="theme-color" content="#070308">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Tropical Beat Açaíteria</title>
 
   <!-- Font Awesome -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-  >
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
   <style>
+    :root {
+      --pink: #ff1493;
+      --pink-light: #ff69b4;
+      --green: #39ff14;
+      --yellow: #ffe600;
+      --blue: #00d9ff;
+      --white: #ffffff;
+    }
 
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     html,
-    body{
-      width:100%;
-      min-height:100%;
+    body {
+      width: 100%;
+      min-height: 100%;
     }
 
-    body{
-      min-height:100vh;
-      min-height:100dvh;
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--white);
+      overflow-x: hidden;
 
-      display:flex;
-      justify-content:center;
-      align-items:center;
+      background-image:
+        linear-gradient(rgba(0, 0, 0, 0.45),
+          rgba(0, 0, 0, 0.65)),
+        url("assets/poster.jpeg");
 
-      padding:15px;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
 
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-      color:#fff;
-
-      background:#070308;
-
-      overflow:hidden;
-
-      position:relative;
+      transition: background-image 1.2s ease-in-out;
     }
 
-    /* =========================================
-       FUNDO DINÂMICO
-       ========================================= */
-
-    #background{
-      position:fixed;
-      inset:0;
-
-      z-index:-3;
+    /* Camada para transição suave */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
 
       background:
-        linear-gradient(
-          180deg,
-          rgba(3,0,7,.35),
-          rgba(3,0,7,.72)
-        ),
-        url("assets/poster-dia.jpeg")
-        center top / cover
-        no-repeat;
+        linear-gradient(rgba(0, 0, 0, 0.45),
+          rgba(0, 0, 0, 0.65)),
+        url("assets/poster.jpeg");
 
-      filter:saturate(1.15);
+      background-size: cover;
+      background-position: center;
 
-      opacity:1;
+      transition: opacity 1s ease;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 520px;
+      min-height: 100vh;
+
+      margin: 0 auto;
+      padding: 25px 18px 20px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Botão de som */
+    .sound-btn {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+
+      width: 46px;
+      height: 46px;
+
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(8px);
+
+      color: white;
+      font-size: 21px;
+
+      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      z-index: 100;
 
       transition:
-        opacity 1.2s ease;
+        transform 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
     }
 
-    /* Escurecimento geral */
-
-    body::after{
-      content:"";
-
-      position:fixed;
-      inset:0;
-
-      z-index:-2;
-
-      pointer-events:none;
-
-      background:
-        radial-gradient(
-          circle at 50% 15%,
-          rgba(255,0,180,.12),
-          transparent 35%
-        ),
-        radial-gradient(
-          circle at 50% 100%,
-          rgba(0,255,160,.10),
-          transparent 40%
-        );
-
-      mix-blend-mode:screen;
+    .sound-btn:hover {
+      transform: scale(1.1);
+      background: rgba(255, 20, 147, 0.7);
+      box-shadow: 0 0 20px rgba(255, 20, 147, 0.7);
     }
 
-
-    /* =========================================
-       BOLHAS
-       ========================================= */
-
-    #bubbles{
-      position:fixed;
-      inset:0;
-
-      z-index:-1;
-
-      overflow:hidden;
-
-      pointer-events:none;
+    .sound-btn:active {
+      transform: scale(0.92);
     }
 
-    .bubble{
-      position:absolute;
+    /* Logo */
+    .logo-container {
+      margin-top: 18px;
+      margin-bottom: 14px;
 
-      bottom:-100px;
-
-      border-radius:50%;
-
-      background:
-        radial-gradient(
-          circle at 30% 30%,
-          rgba(255,255,255,.35),
-          rgba(255,255,255,.03)
-        );
-
-      border:1px solid rgba(255,255,255,.12);
-
-      animation:
-        bubbleUp linear infinite;
-
-      opacity:.35;
+      animation: flutuar 3s ease-in-out infinite;
     }
 
-    @keyframes bubbleUp{
+    .logo {
+      width: 150px;
+      height: 150px;
 
-      0%{
-        transform:
-          translateY(0)
-          scale(.8);
+      object-fit: cover;
 
-        opacity:0;
-      }
+      border-radius: 50%;
 
-      10%{
-        opacity:.35;
-      }
-
-      90%{
-        opacity:.25;
-      }
-
-      100%{
-        transform:
-          translateY(-120vh)
-          scale(1.15);
-
-        opacity:0;
-      }
-
-    }
-
-
-    /* =========================================
-       CONTAINER
-       ========================================= */
-
-    .container{
-
-      width:100%;
-      max-width:520px;
-
-      max-height:calc(100dvh - 30px);
-
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-
-      position:relative;
-
-      padding:8px 5px;
-
-      overflow:visible;
-    }
-
-
-    /* =========================================
-       BOTÃO DE SOM
-       ========================================= */
-
-    .sound-btn{
-
-      position:fixed;
-
-      top:18px;
-      right:18px;
-
-      width:44px;
-      height:44px;
-
-      border:none;
-      border-radius:50%;
-
-      background:
-        rgba(10,5,15,.72);
-
-      color:#fff;
-
-      font-size:18px;
-
-      cursor:pointer;
-
-      display:flex;
-      align-items:center;
-      justify-content:center;
-
-      z-index:20;
-
-      border:1px solid rgba(255,255,255,.25);
+      border: 4px solid var(--pink);
 
       box-shadow:
-        0 0 12px rgba(255,0,180,.45),
-        inset 0 0 10px rgba(255,255,255,.05);
+        0 0 12px var(--pink),
+        0 0 30px rgba(255, 20, 147, 0.65);
 
-      backdrop-filter:blur(8px);
-
-      transition:
-        transform .2s ease,
-        box-shadow .2s ease,
-        background .2s ease;
+      background: rgba(0, 0, 0, 0.3);
     }
 
-    .sound-btn:hover{
-
-      transform:scale(1.08);
-
-      box-shadow:
-        0 0 20px rgba(255,0,180,.7);
-    }
-
-    .sound-btn:active{
-      transform:scale(.92);
-    }
-
-
-    /* =========================================
-       LOGO
-       ========================================= */
-
-    .logo{
-
-      width:150px;
-      height:150px;
-
-      object-fit:cover;
-
-      border-radius:50%;
-
-      border:4px solid #ff2abf;
-
-      box-shadow:
-        0 0 10px rgba(255,0,190,.9),
-        0 0 25px rgba(255,0,190,.65),
-        0 0 55px rgba(255,0,190,.35);
-
-      animation:
-        floatLogo 4s ease-in-out infinite;
-
-      margin-bottom:8px;
-    }
-
-    @keyframes floatLogo{
+    @keyframes flutuar {
 
       0%,
-      100%{
-        transform:translateY(0);
+      100% {
+        transform: translateY(0);
       }
 
-      50%{
-        transform:translateY(-7px);
+      50% {
+        transform: translateY(-8px);
       }
-
     }
 
+    /* Título */
+    .title {
+      font-size: 35px;
+      font-weight: 900;
+      letter-spacing: 1px;
 
-    /* =========================================
-       TÍTULO
-       ========================================= */
-
-    h1{
-
-      font-size:clamp(32px, 9vw, 48px);
-
-      line-height:1;
-
-      font-weight:900;
-
-      letter-spacing:-2px;
-
-      text-align:center;
-
-      text-transform:uppercase;
+      text-align: center;
 
       text-shadow:
-        0 0 5px rgba(255,255,255,.4),
-        0 0 12px rgba(255,0,190,.8),
-        0 0 28px rgba(255,0,190,.5);
+        0 0 8px rgba(255, 255, 255, 0.7),
+        0 0 18px rgba(255, 20, 147, 0.7);
 
-      cursor:pointer;
+      margin-bottom: 5px;
 
-      margin-top:2px;
+      cursor: pointer;
+
+      transition: transform 0.2s ease;
     }
 
-    h1 span{
+    .title span {
+      color: var(--pink);
+    }
 
-      color:#ff32c7;
+    .title:active {
+      transform: scale(0.94);
+    }
+
+    .subtitle {
+      font-size: 11px;
+      font-weight: bold;
+
+      letter-spacing: 2px;
+
+      text-align: center;
+
+      opacity: 0.95;
+
+      margin-bottom: 10px;
+    }
+
+    .tagline {
+      font-size: 16px;
+      font-weight: bold;
+
+      text-align: center;
+
+      margin-bottom: 20px;
 
       text-shadow:
-        0 0 8px #ff32c7,
-        0 0 20px rgba(255,50,199,.8);
+        0 0 8px rgba(255, 20, 147, 0.7);
     }
 
+    /* Links */
+    .links {
+      width: 100%;
 
-    /* =========================================
-       SUBTÍTULO
-       ========================================= */
+      display: flex;
+      flex-direction: column;
 
-    .subtitle{
-
-      margin-top:7px;
-
-      font-size:11px;
-
-      font-weight:800;
-
-      letter-spacing:2px;
-
-      text-align:center;
-
-      color:#fff;
-
-      text-shadow:
-        0 0 8px rgba(255,255,255,.5);
+      gap: 13px;
     }
 
+    .link-card {
+      position: relative;
 
-    /* =========================================
-       FRASE
-       ========================================= */
+      width: 100%;
+      min-height: 62px;
 
-    .tagline{
+      padding: 14px 18px;
 
-      margin-top:7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-      font-size:14px;
+      gap: 12px;
 
-      font-weight:700;
+      color: white;
+      text-decoration: none;
 
-      color:#ffd6f5;
+      border-radius: 17px;
 
-      text-align:center;
+      background: rgba(0, 0, 0, 0.58);
 
-      text-shadow:
-        0 0 10px rgba(255,0,190,.7);
-    }
+      border: 1px solid rgba(255, 255, 255, 0.22);
 
+      backdrop-filter: blur(9px);
 
-    /* =========================================
-       LINKS
-       ========================================= */
+      overflow: hidden;
 
-    .links{
-
-      width:100%;
-
-      display:flex;
-
-      flex-direction:column;
-
-      gap:9px;
-
-      margin-top:17px;
-    }
-
-    .link{
-
-      position:relative;
-
-      width:100%;
-
-      min-height:53px;
-
-      display:flex;
-
-      align-items:center;
-
-      justify-content:center;
-
-      padding:12px 50px;
-
-      border-radius:17px;
-
-      color:#fff;
-
-      text-decoration:none;
-
-      font-size:15px;
-
-      font-weight:900;
-
-      letter-spacing:.4px;
-
-      overflow:hidden;
-
-      border:1px solid rgba(255,255,255,.20);
-
-      background:
-        linear-gradient(
-          135deg,
-          rgba(255,255,255,.13),
-          rgba(255,255,255,.045)
-        );
-
-      backdrop-filter:blur(10px);
+      font-size: 16px;
+      font-weight: 800;
 
       box-shadow:
-        0 5px 20px rgba(0,0,0,.25),
-        inset 0 0 15px rgba(255,255,255,.035);
+        0 7px 20px rgba(0, 0, 0, 0.25);
 
       transition:
-        transform .22s ease,
-        box-shadow .22s ease;
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
     }
 
-    .link::before{
+    .link-card::before {
+      content: "";
 
-      content:"";
+      position: absolute;
 
-      position:absolute;
+      top: 0;
+      left: -120%;
 
-      top:0;
-      left:-120%;
+      width: 80%;
+      height: 100%;
 
-      width:80%;
-      height:100%;
-
-      background:
-        linear-gradient(
-          90deg,
+      background: linear-gradient(90deg,
           transparent,
-          rgba(255,255,255,.22),
-          transparent
-        );
+          rgba(255, 255, 255, 0.25),
+          transparent);
 
-      transform:skewX(-20deg);
+      transform: skewX(-25deg);
 
-      transition:left .65s ease;
+      transition: left 0.6s ease;
     }
 
-    .link:hover::before{
-      left:140%;
+    .link-card:hover::before {
+      left: 130%;
     }
 
-    .link:hover{
+    .link-card:hover {
+      transform: translateY(-3px) scale(1.015);
+    }
 
-      transform:
-        translateY(-3px)
-        scale(1.015);
+    .link-card:active {
+      transform: scale(0.97);
+    }
 
+    .link-card i {
+      font-size: 22px;
+      min-width: 24px;
+    }
+
+    /* Cores dos botões */
+    .ifood {
+      border-color: rgba(255, 45, 45, 0.55);
+    }
+
+    .ifood:hover {
       box-shadow:
-        0 8px 30px rgba(0,0,0,.4),
-        0 0 20px var(--glow);
+        0 0 22px rgba(255, 45, 45, 0.55);
     }
 
-    .link:active{
-
-      transform:
-        scale(.97);
+    .ifood i {
+      color: #ff2d2d;
     }
 
-    .link i{
-
-      position:absolute;
-
-      left:19px;
-
-      width:25px;
-
-      text-align:center;
-
-      font-size:20px;
+    .whatsapp {
+      border-color: rgba(37, 211, 102, 0.55);
     }
 
-
-    /* CORES DOS BOTÕES */
-
-    .ifood{
-      --glow:rgba(255,30,40,.65);
-      border-color:rgba(255,50,60,.4);
-    }
-
-    .ifood i{
-      color:#fff;
-    }
-
-    .whatsapp{
-      --glow:rgba(0,255,120,.55);
-      border-color:rgba(0,255,120,.3);
-    }
-
-    .whatsapp i{
-      color:#25d366;
-    }
-
-    .instagram{
-      --glow:rgba(255,0,150,.6);
-      border-color:rgba(255,0,150,.35);
-    }
-
-    .instagram i{
-      color:#ff42c7;
-    }
-
-    .facebook{
-      --glow:rgba(30,120,255,.6);
-      border-color:rgba(30,120,255,.35);
-    }
-
-    .facebook i{
-      color:#4293ff;
-    }
-
-
-    /* =========================================
-       TEXTO ABAIXO DOS LINKS
-       ========================================= */
-
-    .quick{
-
-      margin-top:11px;
-
-      font-size:10px;
-
-      font-weight:700;
-
-      opacity:.78;
-
-      text-align:center;
-
-      letter-spacing:.4px;
-    }
-
-
-    /* =========================================
-       BENEFÍCIOS
-       ========================================= */
-
-    .features{
-
-      width:100%;
-
-      display:grid;
-
-      grid-template-columns:
-        repeat(4,1fr);
-
-      gap:7px;
-
-      margin-top:13px;
-    }
-
-    .feature{
-
-      min-height:52px;
-
-      display:flex;
-
-      flex-direction:column;
-
-      align-items:center;
-      justify-content:center;
-
-      text-align:center;
-
-      border-radius:13px;
-
-      padding:6px 3px;
-
-      background:
-        rgba(0,0,0,.22);
-
-      border:
-        1px solid rgba(255,255,255,.12);
-
-      backdrop-filter:blur(7px);
-
+    .whatsapp:hover {
       box-shadow:
-        inset 0 0 12px rgba(255,255,255,.025);
+        0 0 22px rgba(37, 211, 102, 0.55);
     }
 
-    .feature strong{
+    .whatsapp i {
+      color: #25d366;
+    }
 
-      font-size:16px;
+    .instagram {
+      border-color: rgba(255, 20, 147, 0.6);
+    }
 
-      margin-bottom:2px;
+    .instagram:hover {
+      box-shadow:
+        0 0 22px rgba(255, 20, 147, 0.55);
+    }
 
-      color:#ff46cb;
+    .instagram i {
+      color: #ff1493;
+    }
+
+    .facebook {
+      border-color: rgba(24, 119, 242, 0.6);
+    }
+
+    .facebook:hover {
+      box-shadow:
+        0 0 22px rgba(24, 119, 242, 0.55);
+    }
+
+    .facebook i {
+      color: #1877f2;
+    }
+
+    /* Ripple */
+    .ripple {
+      position: absolute;
+
+      border-radius: 50%;
+
+      transform: scale(0);
+
+      animation: ripple 0.6s linear;
+
+      background: rgba(255, 255, 255, 0.35);
+
+      pointer-events: none;
+    }
+
+    @keyframes ripple {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+
+    .quick-text {
+      margin-top: 14px;
+      margin-bottom: 18px;
+
+      font-size: 12px;
+
+      opacity: 0.85;
+
+      text-align: center;
+    }
+
+    /* Benefícios */
+    .features {
+      width: 100%;
+
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+
+      gap: 10px;
+
+      margin-top: 2px;
+    }
+
+    .feature {
+      padding: 12px 8px;
+
+      border-radius: 14px;
+
+      text-align: center;
+
+      background: rgba(0, 0, 0, 0.42);
+
+      border: 1px solid rgba(255, 255, 255, 0.16);
+
+      backdrop-filter: blur(6px);
+
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .feature-icon {
+      display: block;
+
+      font-size: 22px;
+
+      margin-bottom: 5px;
+
+      color: var(--pink);
 
       text-shadow:
-        0 0 10px rgba(255,0,190,.65);
+        0 0 8px currentColor;
     }
 
-    .feature span{
+    /* Footer */
+    footer {
+      margin-top: 22px;
 
-      font-size:7.5px;
+      text-align: center;
 
-      line-height:1.1;
+      font-size: 11px;
 
-      font-weight:900;
+      opacity: 0.8;
 
-      letter-spacing:.3px;
+      line-height: 1.7;
     }
 
-
-    /* =========================================
-       FOOTER
-       ========================================= */
-
-    footer{
-
-      margin-top:12px;
-
-      text-align:center;
-
-      line-height:1.25;
-
-      opacity:.8;
+    footer strong {
+      color: var(--pink);
     }
 
-    footer .brand{
+    /* Bolhas */
+    .bubbles {
+      position: fixed;
 
-      font-size:11px;
+      inset: 0;
 
-      font-weight:900;
+      overflow: hidden;
 
-      color:#fff;
+      pointer-events: none;
+
+      z-index: -1;
     }
 
-    footer .phrase{
+    .bubble {
+      position: absolute;
 
-      font-size:9px;
+      bottom: -50px;
 
-      color:#ff9ee2;
+      border-radius: 50%;
 
-      font-weight:700;
+      background: rgba(255, 255, 255, 0.08);
+
+      animation: subir linear infinite;
     }
 
-    footer .copy{
-
-      margin-top:2px;
-
-      font-size:7.5px;
-
-      opacity:.7;
+    .bubble:nth-child(1) {
+      width: 35px;
+      height: 35px;
+      left: 8%;
+      animation-duration: 12s;
     }
 
-
-    /* =========================================
-       ANIMAÇÃO DO TÍTULO
-       ========================================= */
-
-    .title-pop{
-
-      animation:
-        titlePop .45s ease;
+    .bubble:nth-child(2) {
+      width: 20px;
+      height: 20px;
+      left: 25%;
+      animation-duration: 9s;
+      animation-delay: 2s;
     }
 
-    @keyframes titlePop{
-
-      0%{
-        transform:scale(1);
-      }
-
-      50%{
-        transform:scale(1.08);
-      }
-
-      100%{
-        transform:scale(1);
-      }
-
+    .bubble:nth-child(3) {
+      width: 45px;
+      height: 45px;
+      left: 52%;
+      animation-duration: 14s;
+      animation-delay: 1s;
     }
 
-
-    /* =========================================
-       RIPPLE
-       ========================================= */
-
-    .ripple{
-
-      position:absolute;
-
-      border-radius:50%;
-
-      transform:scale(0);
-
-      animation:
-        ripple .6s linear;
-
-      background:
-        rgba(255,255,255,.25);
-
-      pointer-events:none;
+    .bubble:nth-child(4) {
+      width: 25px;
+      height: 25px;
+      left: 75%;
+      animation-duration: 10s;
+      animation-delay: 4s;
     }
 
-    @keyframes ripple{
-
-      to{
-
-        transform:scale(4);
-
-        opacity:0;
-      }
-
+    .bubble:nth-child(5) {
+      width: 15px;
+      height: 15px;
+      left: 90%;
+      animation-duration: 8s;
+      animation-delay: 3s;
     }
 
-
-    /* =========================================
-       RESPONSIVIDADE
-       ========================================= */
-
-    @media(max-height:700px){
-
-      .logo{
-        width:120px;
-        height:120px;
+    @keyframes subir {
+      0% {
+        transform: translateY(0);
+        opacity: 0;
       }
 
-      .links{
-        margin-top:11px;
-        gap:7px;
+      15% {
+        opacity: 1;
       }
 
-      .link{
-        min-height:47px;
-        padding:9px 45px;
+      100% {
+        transform: translateY(-110vh);
+        opacity: 0;
       }
-
-      .features{
-        margin-top:9px;
-      }
-
-      footer{
-        margin-top:8px;
-      }
-
     }
 
-
-    @media(max-width:380px){
-
-      body{
-        padding:10px;
+    /* Celulares pequenos */
+    @media (max-width: 380px) {
+      .page {
+        padding-left: 14px;
+        padding-right: 14px;
       }
 
-      .logo{
-        width:110px;
-        height:110px;
+      .logo {
+        width: 130px;
+        height: 130px;
       }
 
-      h1{
-        font-size:31px;
+      .title {
+        font-size: 30px;
       }
 
-      .subtitle{
-        font-size:9px;
-        letter-spacing:1.5px;
+      .link-card {
+        min-height: 58px;
+        font-size: 14px;
       }
-
-      .tagline{
-        font-size:12px;
-      }
-
-      .link{
-        min-height:47px;
-        font-size:13px;
-      }
-
-      .feature span{
-        font-size:6.8px;
-      }
-
     }
-
   </style>
 </head>
 
-
 <body>
 
-  <!-- =========================================
-       FUNDO
-       ========================================= -->
-
-  <div id="background"></div>
-
-  <!-- Bolhas -->
-  <div id="bubbles"></div>
-
-
-  <!-- =========================================
-       MÚSICA
-       ========================================= -->
-
-  <audio
-    id="backgroundMusic"
-    src="assets/musica.mpeg"
-    loop
-    preload="auto">
+  <!-- Música -->
+  <audio id="backgroundMusic" src="assets/música.mpeg" loop preload="auto">
   </audio>
 
-
-  <!-- =========================================
-       BOTÃO DE SOM
-       ========================================= -->
-
-  <button
-    class="sound-btn"
-    id="soundBtn"
-    aria-label="Silenciar música">
+  <!-- Botão de som -->
+  <button class="sound-btn" id="soundBtn" aria-label="Silenciar música">
     🔊
   </button>
 
+  <div class="bubbles">
+    <span class="bubble"></span>
+    <span class="bubble"></span>
+    <span class="bubble"></span>
+    <span class="bubble"></span>
+    <span class="bubble"></span>
+  </div>
 
-  <!-- =========================================
-       CONTEÚDO
-       ========================================= -->
+  <main class="page">
 
-  <main class="container">
+    <div class="logo-container">
+      <img src="assets/logo.png" alt="Tropical Beat Açaíteria" class="logo">
+    </div>
 
-
-    <!-- LOGO -->
-
-    <img
-      src="assets/logo.png"
-      alt="Tropical Beat Açaíteria"
-      class="logo"
-    >
-
-
-    <!-- TÍTULO -->
-
-    <h1 id="title">
+    <h1 class="title">
       Tropical <span>Beat</span>
     </h1>
-
-
-    <!-- SUBTÍTULO -->
 
     <div class="subtitle">
       AÇAÍTERIA • AÇAÍ • ENERGIA • SABOR
     </div>
 
-
-    <!-- FRASE -->
-
     <div class="tagline">
       💜 O melhor açaí da região!
     </div>
 
+    <section class="links">
 
-    <!-- =====================================
-         BOTÕES
-         ===================================== -->
-
-    <div class="links">
-
-
-      <!-- IFOOD -->
-
-      <a
-        class="link ifood"
+      <a class="link-card ifood"
         href="https://www.ifood.com.br/delivery/cuiaba-mt/tropical-beat-acaiteria-altos-da-serra-2/4ff38d59-c908-4d7d-b737-24981e196da0?UTM_Medium=share"
-        target="_blank"
-        rel="noopener"
-      >
+        target="_blank">
 
-        <img
-          src="https://cdn.simpleicons.org/ifood/ffffff"
-          alt="iFood"
-          style="
-            position:absolute;
-            left:18px;
-            width:24px;
-            height:24px;
-          "
-        >
+        <img src="https://cdn.simpleicons.org/ifood/ffffff" width="25" height="25" alt="iFood">
 
-        FAÇA SEU PEDIDO NO IFOOD
-
+        <span>Peça pelo iFood</span>
       </a>
 
-
-      <!-- WHATSAPP -->
-
-      <a
-        class="link whatsapp"
+      <a class="link-card whatsapp"
         href="https://wa.me/5565999816519?text=Ol%C3%A1%20Tropical%20Beat!%20Quero%20fazer%20um%20pedido."
-        target="_blank"
-        rel="noopener"
-      >
+        target="_blank">
 
         <i class="fa-brands fa-whatsapp"></i>
 
-        PEDIR PELO WHATSAPP
-
+        <span>Faça seu pedido pelo WhatsApp</span>
       </a>
 
-
-      <!-- INSTAGRAM -->
-
-      <a
-        class="link instagram"
-        href="https://www.instagram.com/tropicalbeatacai?stkn=ZHBtbWtyMjVidnp2"
-        target="_blank"
-        rel="noopener"
-      >
+      <a class="link-card instagram" href="https://www.instagram.com/tropicalbeatacai?stkn=ZHBtbWtyMjVidnp2"
+        target="_blank">
 
         <i class="fa-brands fa-instagram"></i>
 
-        SIGA NO INSTAGRAM
-
+        <span>Siga a gente no Instagram</span>
       </a>
 
-
-      <!-- FACEBOOK -->
-
-      <a
-        class="link facebook"
-        href="https://www.facebook.com/share/19GgyrQBqA/"
-        target="_blank"
-        rel="noopener"
-      >
+      <a class="link-card facebook" href="https://www.facebook.com/share/19GgyrQBqA/" target="_blank">
 
         <i class="fa-brands fa-facebook-f"></i>
 
-        SIGA NO FACEBOOK
-
+        <span>Curta nossa página no Facebook</span>
       </a>
 
-    </div>
+    </section>
 
-
-    <!-- TEXTO -->
-
-    <div class="quick">
+    <div class="quick-text">
       📲 Toque em qualquer botão para acessar
     </div>
 
-
-    <!-- =====================================
-         BENEFÍCIOS
-         ===================================== -->
-
-    <div class="features">
+    <section class="features">
 
       <div class="feature">
-        <strong>◒</strong>
-        <span>AÇAÍ DE VERDADE</span>
+        <span class="feature-icon">◒</span>
+        AÇAÍ DE VERDADE
       </div>
 
       <div class="feature">
-        <strong>ϟ</strong>
-        <span>ENERGIA NATURAL</span>
+        <span class="feature-icon">ϟ</span>
+        ENERGIA NATURAL
       </div>
 
       <div class="feature">
-        <strong>♡</strong>
-        <span>SABOR INCRÍVEL</span>
+        <span class="feature-icon">♡</span>
+        SABOR INCRÍVEL
       </div>
 
       <div class="feature">
-        <strong>♨</strong>
-        <span>DELIVERY RÁPIDO</span>
+        <span class="feature-icon">♨</span>
+        DELIVERY RÁPIDO
       </div>
 
-    </div>
-
-
-    <!-- =====================================
-         FOOTER
-         ===================================== -->
+    </section>
 
     <footer>
-
-      <div class="brand">
-        Tropical Beat
-      </div>
-
-      <div class="phrase">
-        é tudo de bom! 💜
-      </div>
-
-      <div class="copy">
-        © 2026 Tropical Beat Açaíteria
-      </div>
-
+      <strong>Tropical Beat</strong><br>
+      é tudo de bom! 💜<br>
+      © 2026 Tropical Beat Açaíteria
     </footer>
 
   </main>
 
-
+  <!--
+        PARTE 2 CONTINUA AQUI
+    -->
   <script>
+    // ================================
+    // MÚSICA
+    // ================================
 
-    /* =========================================
-       FUNDO DIA / NOITE
-       ========================================= */
-
-    const background =
-      document.getElementById('background');
-
-    const backgroundDia =
-      'assets/poster-dia.jpeg';
-
-    const backgroundNoite =
-      'assets/poster.jpeg';
-
-
-    /*
-      Pré-carrega as imagens para
-      evitar demora na troca.
-    */
-
-    new Image().src = backgroundDia;
-    new Image().src = backgroundNoite;
-
-
-    function atualizarBackground(){
-
-      const agora = new Date();
-
-      const hora =
-        agora.getHours();
-
-      /*
-        06:00 até 17:59 = DIA
-        18:00 até 05:59 = NOITE
-      */
-
-      const ehDia =
-        hora >= 6 &&
-        hora < 18;
-
-      const novoBackground =
-        ehDia
-          ? backgroundDia
-          : backgroundNoite;
-
-
-      /*
-        Se já está usando a imagem correta,
-        não faz nada.
-      */
-
-      if(
-        background.dataset.current ===
-        novoBackground
-      ){
-        return;
-      }
-
-
-      /*
-        Faz o fundo desaparecer suavemente.
-      */
-
-      background.style.opacity = '0';
-
-
-      setTimeout(() => {
-
-        background.style.backgroundImage = `
-          linear-gradient(
-            180deg,
-            rgba(3,0,7,.35),
-            rgba(3,0,7,.72)
-          ),
-          url("${novoBackground}")
-        `;
-
-
-        background.dataset.current =
-          novoBackground;
-
-
-        /*
-          Faz o novo fundo aparecer.
-        */
-
-        background.style.opacity = '1';
-
-      },600);
-
-    }
-
-
-    /*
-      Executa imediatamente.
-    */
-
-    atualizarBackground();
-
-
-    /*
-      Verifica a cada 60 segundos.
-      Assim, se a pessoa deixar a página
-      aberta durante a mudança de horário,
-      o fundo também muda.
-    */
-
-    setInterval(
-      atualizarBackground,
-      60000
-    );
-
-
-
-    /* =========================================
-       MÚSICA
-       ========================================= */
-
-    const soundBtn =
-      document.getElementById('soundBtn');
-
-    const backgroundMusic =
-      document.getElementById('backgroundMusic');
-
-
-    /*
-      Volume da música.
-
-      0.35 = 35%
-    */
+    const soundBtn = document.getElementById('soundBtn');
+    const backgroundMusic = document.getElementById('backgroundMusic');
 
     backgroundMusic.volume = 0.35;
-
-
-    /*
-      Começa inicialmente ativada.
-    */
 
     let soundOn = true;
 
 
-    /*
-      Atualiza o botão.
-    */
+    function atualizarBotaoSom() {
 
-    function atualizarBotaoSom(){
-
-      if(soundOn){
+      if (soundOn === true) {
 
         soundBtn.textContent = '🔊';
 
@@ -1184,7 +684,7 @@
           'Silenciar música'
         );
 
-      }else{
+      } else {
 
         soundBtn.textContent = '🔇';
 
@@ -1198,337 +698,256 @@
     }
 
 
-    /*
-      Tenta iniciar automaticamente.
+    // Tenta iniciar a música automaticamente
+    backgroundMusic.muted = false;
 
-      Alguns navegadores podem bloquear
-      áudio automático.
-    */
+    backgroundMusic.play()
+      .then(() => {
 
-    function iniciarMusica(){
-
-      backgroundMusic
-        .play()
-        .then(() => {
-
-          soundOn = true;
-
-          atualizarBotaoSom();
-
-        })
-        .catch(() => {
-
-          /*
-            O navegador bloqueou o autoplay.
-            A música será iniciada no primeiro
-            toque do usuário.
-          */
-
-          soundOn = false;
-
-          atualizarBotaoSom();
-
-        });
-
-    }
-
-
-    iniciarMusica();
-
-
-    /*
-      BOTÃO DE SOM
-
-      Em vez de pausar, usamos "muted".
-      Assim a música continua tocando
-      e, ao ativar novamente, volta
-      exatamente de onde estava.
-    */
-
-    soundBtn.addEventListener(
-      'click',
-      function(event){
-
-        event.preventDefault();
-
-        event.stopPropagation();
-
-
-        if(soundOn){
-
-          backgroundMusic.muted = true;
-
-          soundOn = false;
-
-        }else{
-
-          backgroundMusic.muted = false;
-
-          backgroundMusic
-            .play()
-            .then(() => {
-
-              soundOn = true;
-
-            })
-            .catch(() => {
-
-              soundOn = false;
-
-            });
-
-        }
-
-
+        soundOn = true;
         atualizarBotaoSom();
 
-      }
-    );
+      })
+      .catch(() => {
 
-
-/* =========================================
-       FALLBACK DO AUTOPLAY
-       ========================================= */
-
-    document.addEventListener(
-      'click',
-      function iniciarNoPrimeiroToque(event){
-
-        /*
-          Se o clique foi no botão de som,
-          deixa o próprio botão controlar a música.
-        */
-
-        if(
-          event.target.closest('.sound-btn')
-        ){
-          return;
-        }
-
-
-        /*
-          Se o navegador bloqueou o autoplay,
-          tenta iniciar a música no primeiro
-          toque do usuário.
-        */
-
-        if(
-          !soundOn &&
-          backgroundMusic.paused
-        ){
-
-          backgroundMusic.muted = false;
-
-          backgroundMusic
-            .play()
-            .then(() => {
-
-              soundOn = true;
-
-              atualizarBotaoSom();
-
-            })
-            .catch(() => {});
-
-        }
-
-      }
-    );
-
-
-
-    /* =========================================
-       RIPPLE NOS BOTÕES
-       ========================================= */
-
-    document
-      .querySelectorAll('.link')
-      .forEach(link => {
-
-        link.addEventListener(
-          'click',
-          function(event){
-
-            const rect =
-              link.getBoundingClientRect();
-
-
-            const ripple =
-              document.createElement('span');
-
-
-            ripple.classList.add('ripple');
-
-
-            const size =
-              Math.max(
-                rect.width,
-                rect.height
-              );
-
-
-            ripple.style.width =
-              size + 'px';
-
-            ripple.style.height =
-              size + 'px';
-
-
-            ripple.style.left =
-              (
-                event.clientX -
-                rect.left -
-                size / 2
-              ) + 'px';
-
-
-            ripple.style.top =
-              (
-                event.clientY -
-                rect.top -
-                size / 2
-              ) + 'px';
-
-
-            link.appendChild(ripple);
-
-
-            setTimeout(() => {
-
-              ripple.remove();
-
-            }, 600);
-
-          }
-        );
+        soundOn = false;
+        atualizarBotaoSom();
 
       });
 
 
+    // Botão de ligar/desligar música
+    soundBtn.addEventListener('click', function (event) {
 
-    /* =========================================
-       ANIMAÇÃO DO TÍTULO
-       ========================================= */
-
-    const title =
-      document.getElementById('title');
+      event.preventDefault();
+      event.stopPropagation();
 
 
-    title.addEventListener(
+      if (soundOn === true) {
+
+        // DESLIGAR
+        backgroundMusic.muted = true;
+        soundOn = false;
+
+        atualizarBotaoSom();
+
+      } else {
+
+        // LIGAR
+        backgroundMusic.muted = false;
+
+        backgroundMusic.play()
+          .then(() => {
+
+            soundOn = true;
+            atualizarBotaoSom();
+
+          })
+          .catch(() => {
+
+            soundOn = false;
+            atualizarBotaoSom();
+
+          });
+
+      }
+
+    });
+
+
+    // Se o navegador bloquear o autoplay,
+    // inicia a música no primeiro toque na página
+    document.addEventListener(
       'click',
-      () => {
+      function iniciarNoPrimeiroToque(event) {
 
-        title.classList.remove(
-          'title-pop'
-        );
+        if (event.target.closest('.sound-btn')) {
+          return;
+        }
 
+        if (!soundOn && backgroundMusic.paused) {
 
-        /*
-          Força o navegador a reiniciar
-          a animação.
-        */
+          backgroundMusic.muted = false;
 
-        void title.offsetWidth;
+          backgroundMusic.play()
+            .then(() => {
 
+              soundOn = true;
+              atualizarBotaoSom();
 
-        title.classList.add(
-          'title-pop'
-        );
+            })
+            .catch(() => { });
+
+        }
 
       }
     );
 
 
 
-    /* =========================================
-       BOLHAS ANIMADAS
-       ========================================= */
+    // ================================
+    // FUNDO DIA / NOITE
+    // ================================
 
-    const bubbles =
-      document.getElementById('bubbles');
-
-
-    function criarBolha(){
-
-      const bubble =
-        document.createElement('div');
+    const fundoDia = 'assets/poster-dia.jpeg';
+    const fundoNoite = 'assets/poster.jpeg';
 
 
-      bubble.className =
-        'bubble';
+    // Pré-carrega as imagens
+    const imagemDia = new Image();
+    imagemDia.src = fundoDia;
+
+    const imagemNoite = new Image();
+    imagemNoite.src = fundoNoite;
 
 
-      const tamanho =
-        Math.random() * 35 + 8;
+    function atualizarFundo() {
+
+      const agora = new Date();
+      const hora = agora.getHours();
 
 
-      bubble.style.width =
-        tamanho + 'px';
+      // 06:00 até 17:59 = DIA
+      if (hora >= 6 && hora < 18) {
 
-      bubble.style.height =
-        tamanho + 'px';
+        document.body.style.backgroundImage =
+          `linear-gradient(
+                    rgba(0, 0, 0, 0.45),
+                    rgba(0, 0, 0, 0.65)
+                ),
+                url("${fundoDia}")`;
 
+      }
 
-      bubble.style.left =
-        Math.random() * 100 + '%';
+      // 18:00 até 05:59 = NOITE
+      else {
 
+        document.body.style.backgroundImage =
+          `linear-gradient(
+                    rgba(0, 0, 0, 0.45),
+                    rgba(0, 0, 0, 0.65)
+                ),
+                url("${fundoNoite}")`;
 
-      const duracao =
-        Math.random() * 12 + 10;
-
-
-      bubble.style.animationDuration =
-        duracao + 's';
-
-
-      bubble.style.animationDelay =
-        Math.random() * 4 + 's';
-
-
-      bubbles.appendChild(
-        bubble
-      );
-
-
-      /*
-        Remove depois da animação.
-      */
-
-      setTimeout(() => {
-
-        bubble.remove();
-
-      }, (duracao + 5) * 1000);
+      }
 
     }
 
 
-    /*
-      Cria várias bolhas inicialmente.
-    */
-
-    for(
-      let i = 0;
-      i < 18;
-      i++
-    ){
-
-      criarBolha();
-
-    }
+    // Atualiza o fundo assim que a página abre
+    atualizarFundo();
 
 
-    /*
-      Continua criando bolhas.
-    */
-
+    // Verifica novamente a cada 60 segundos
     setInterval(
-      criarBolha,
-      1200
+      atualizarFundo,
+      60000
     );
 
+
+
+    // ================================
+    // EFEITO RIPPLE NOS BOTÕES
+    // ================================
+
+    const linkCards =
+      document.querySelectorAll('.link-card');
+
+
+    linkCards.forEach(function (card) {
+
+      card.addEventListener(
+        'click',
+        function (event) {
+
+          const rect =
+            card.getBoundingClientRect();
+
+          const ripple =
+            document.createElement('span');
+
+          const size =
+            Math.max(
+              rect.width,
+              rect.height
+            );
+
+          const x =
+            event.clientX -
+            rect.left -
+            size / 2;
+
+          const y =
+            event.clientY -
+            rect.top -
+            size / 2;
+
+
+          ripple.classList.add('ripple');
+
+          ripple.style.width =
+            size + 'px';
+
+          ripple.style.height =
+            size + 'px';
+
+          ripple.style.left =
+            x + 'px';
+
+          ripple.style.top =
+            y + 'px';
+
+
+          card.appendChild(ripple);
+
+
+          setTimeout(
+            function () {
+
+              ripple.remove();
+
+            },
+            600
+          );
+
+        }
+      );
+
+    });
+
+
+
+    // ================================
+    // ANIMAÇÃO DO TÍTULO
+    // ================================
+
+    const title =
+      document.querySelector('.title');
+
+
+    title.addEventListener(
+      'click',
+      function () {
+
+        title.style.transform =
+          'scale(1.08)';
+
+
+        setTimeout(
+          function () {
+
+            title.style.transform =
+              'scale(1)';
+
+          },
+          200
+        );
+
+      }
+    );
 
   </script>
 
 </body>
+
 </html>
