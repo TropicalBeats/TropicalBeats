@@ -946,6 +946,38 @@
       }
     );
 
+
+
+    // ================================
+    // CONTROLE DA MÚSICA AO SAIR/VOLTAR
+    // ================================
+
+    let musicaEstavaTocando = false;
+
+    document.addEventListener('visibilitychange', function () {
+
+      if (document.hidden) {
+
+        // Guarda se a música estava tocando
+        musicaEstavaTocando = !backgroundMusic.paused && !backgroundMusic.muted;
+
+        // Para a música
+        backgroundMusic.pause();
+
+      } else {
+
+        // Quando voltar para a página
+        if (musicaEstavaTocando && soundOn) {
+
+          backgroundMusic.play()
+            .catch(() => { });
+
+        }
+
+      }
+
+    });
+
   </script>
 
 </body>
